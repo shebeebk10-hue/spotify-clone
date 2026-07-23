@@ -1,3 +1,5 @@
+import { useState } from "react";
+import songs from "./data/songs";
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
 import Greeting from "./components/Greeting";
@@ -6,6 +8,8 @@ import RecentlyPlayed from "./components/RecentlyPlayed";
 import Player from "./components/Player";
 
 function App() {
+  const [currentSong, setCurrentSong] = useState(songs[0]);
+
   return (
     <div className="bg-black h-screen flex flex-col">
 
@@ -30,14 +34,14 @@ function App() {
 
           <AlbumGrid />
 
-          <RecentlyPlayed />
+          <RecentlyPlayed setCurrentSong={setCurrentSong} />
 
         </main>
 
       </div>
 
       {/* Bottom Player */}
-      <Player />
+      <Player currentSong={currentSong} />
 
     </div>
   );

@@ -1,7 +1,7 @@
 import songs from "../data/songs";
 import SongCard from "./SongCard";
 
-function RecentlyPlayed() {
+function RecentlyPlayed({ setCurrentSong }) {
   return (
     <div className="px-8 mt-12">
 
@@ -12,12 +12,16 @@ function RecentlyPlayed() {
       <div className="grid grid-cols-4 gap-6">
 
         {songs.slice(0, 4).map((song) => (
-          <SongCard
+          <div
             key={song.id}
-            image={song.image}
-            title={song.title}
-            artist="Spotify Playlist"
-          />
+            onClick={() => setCurrentSong(song)}
+          >
+            <SongCard
+              image={song.image}
+              title={song.title}
+              artist={song.artist}
+            />
+          </div>
         ))}
 
       </div>
