@@ -32,7 +32,7 @@ function App() {
 
           <Greeting />
 
-          <AlbumGrid />
+          <AlbumGrid setCurrentSong={setCurrentSong} />
 
           <RecentlyPlayed setCurrentSong={setCurrentSong} />
 

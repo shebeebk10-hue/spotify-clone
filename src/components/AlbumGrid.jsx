@@ -1,23 +1,24 @@
 import songs from "../data/songs";
 
-function AlbumGrid() {
+function AlbumGrid({ setCurrentSong }) {
   return (
     <div className="px-8 grid grid-cols-3 gap-4">
       {songs.map((song) => (
         <div
           key={song.id}
+          onClick={() => setCurrentSong(song)}
           className="
-          group
-          bg-[#2a2a2a]/80
-          hover:bg-[#3a3a3a]
-          rounded-lg
-          overflow-hidden
-          flex
-          items-center
-          cursor-pointer
-          transition-all
-          duration-300
-          hover:scale-[1.02]
+            group
+            bg-[#2a2a2a]/80
+            hover:bg-[#3a3a3a]
+            rounded-lg
+            overflow-hidden
+            flex
+            items-center
+            cursor-pointer
+            transition-all
+            duration-300
+            hover:scale-[1.02]
           "
         >
           <img
@@ -30,6 +31,10 @@ function AlbumGrid() {
             <h3 className="text-white font-semibold">
               {song.title}
             </h3>
+
+            <p className="text-gray-400 text-sm">
+              {song.artist}
+            </p>
           </div>
         </div>
       ))}
