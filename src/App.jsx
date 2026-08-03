@@ -1,14 +1,24 @@
 import { useState } from "react";
 import songs from "./data/songs";
+
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
-import Greeting from "./components/Greeting";
+import Hero from "./components/Hero";
 import AlbumGrid from "./components/AlbumGrid";
 import RecentlyPlayed from "./components/RecentlyPlayed";
 import Player from "./components/Player";
 
 function App() {
-  const [currentSong, setCurrentSong] = useState(songs[0]);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const currentSong = songs[currentSongIndex];
+
+  const filteredSongs = songs.filter((song) =>
+  song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  song.artist.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <div className="bg-black h-screen flex flex-col">
@@ -28,20 +38,35 @@ function App() {
             overflow-y-auto
           "
         >
-          <Header />
+          <Header
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+          <Hero
+            currentSong={currentSong}
+            setCurrentSongIndex={setCurrentSongIndex}
+          />
 
-          <Greeting />
+          <AlbumGrid
+            songs={filteredSongs}
+            setCurrentSongIndex={setCurrentSongIndex}
+          />
 
-          <AlbumGrid setCurrentSong={setCurrentSong} />
-
-          <RecentlyPlayed setCurrentSong={setCurrentSong} />
+          <RecentlyPlayed
+            songs={filteredSongs}
+            setCurrentSongIndex={setCurrentSongIndex}
+          />
 
         </main>
 
       </div>
 
       {/* Bottom Player */}
-      <Player currentSong={currentSong} />
+      <Player
+        currentSong={currentSong}
+        currentSongIndex={currentSongIndex}
+        setCurrentSongIndex={setCurrentSongIndex}
+      />
 
     </div>
   );

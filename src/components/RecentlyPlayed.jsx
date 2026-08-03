@@ -1,7 +1,6 @@
-import songs from "../data/songs";
 import SongCard from "./SongCard";
 
-function RecentlyPlayed({ setCurrentSong }) {
+function RecentlyPlayed({ songs, setCurrentSongIndex }) {
   return (
     <div className="px-8 mt-12">
 
@@ -9,22 +8,34 @@ function RecentlyPlayed({ setCurrentSong }) {
         Recently Played
       </h2>
 
-      <div className="grid grid-cols-4 gap-6">
+      {songs.length === 0 ? (
+        <div className="text-center py-12">
+          <h2 className="text-white text-xl font-semibold">
+            No songs found
+          </h2>
 
-        {songs.slice(0, 4).map((song) => (
-          <div
-            key={song.id}
-            onClick={() => setCurrentSong(song)}
-          >
-            <SongCard
-              image={song.image}
-              title={song.title}
-              artist={song.artist}
-            />
-          </div>
-        ))}
+          <p className="text-gray-400 mt-2">
+            Try searching for another title or artist.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-4 gap-6">
 
-      </div>
+          {songs.slice(0, 4).map((song) => (
+            <div
+              key={song.id}
+              onClick={() => setCurrentSongIndex(song.id - 1)}
+            >
+              <SongCard
+                image={song.image}
+                title={song.title}
+                artist={song.artist}
+              />
+            </div>
+          ))}
+
+        </div>
+      )}
 
     </div>
   );

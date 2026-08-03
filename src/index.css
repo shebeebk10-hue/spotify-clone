@@ -1,1 +1,35 @@
 @import "tailwindcss";
+
+:root {
+  --bg: #0B0F14;
+  --sidebar: #10151D;
+  --surface: rgba(255,255,255,0.05);
+  --surface-hover: rgba(255,255,255,0.08);
+  --border: rgba(255,255,255,0.08);
+
+  --primary: #8B5CF6;
+  --secondary: #22D3EE;
+
+  --text: #F8FAFC;
+  --muted: #94A3B8;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right,
+      rgba(139,92,246,0.12),
+      transparent 40%),
+    radial-gradient(circle at bottom left,
+      rgba(34,211,238,0.10),
+      transparent 40%),
+    var(--bg);
+}

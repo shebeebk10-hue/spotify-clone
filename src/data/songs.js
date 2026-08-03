@@ -15,7 +15,7 @@ import song6 from "../assets/music/song6.mp3";
 const songs = [
   {
     id: 1,
-    title: "Summer Vibes",
+    title: "Liked Songs",
     artist: "Open Music",
     image: likedSongs,
     audio: song1,
