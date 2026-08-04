@@ -32,10 +32,11 @@ function App() {
           className="
             flex-1
             bg-gradient-to-b
-            from-green-900
-            via-[#1b1b1b]
-            to-[#121212]
+            from-[#0d0d12]
+            via-[#111118]
+            to-[#09090b]
             overflow-y-auto
+            pb-40
           "
         >
           <Header

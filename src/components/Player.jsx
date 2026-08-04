@@ -93,23 +93,49 @@ const playPrevious = () => {
         <source src={currentSong.audio} type="audio/mpeg" />
       </audio>
 
-      <div className="h-24 bg-black border-t border-gray-800 flex items-center justify-between px-6">
-
+      <div
+        className="
+          fixed
+          bottom-5
+          left-1/2
+          -translate-x-1/2
+          w-[92%]
+          max-w-7xl
+          min-h-36
+          rounded-3xl
+          bg-white/5
+          backdrop-blur-2xl
+          border
+          border-white/10
+          shadow-[0_0_40px_rgba(139,92,246,0.25)]
+          flex
+          items-center
+          justify-between
+          px-8
+          z-50
+        "
+      >
         {/* Left */}
         <div className="flex items-center gap-4 w-1/4">
 
           <img
             src={currentSong.image}
             alt={currentSong.title}
-            className="w-14 h-14 rounded"
+            className="
+              w-16
+              h-16v
+              rounded-2xl
+              object-cover
+              shadow-lg
+            "
           />
 
           <div>
-            <h3 className="text-white font-medium">
+            <h3 className="text-white text-lg font-semibold">
               {currentSong.title}
             </h3>
 
-            <p className="text-gray-400 text-sm">
+            <p className="text-slate-400 text-sm">
               {currentSong.artist}
             </p>
           </div>
@@ -117,36 +143,79 @@ const playPrevious = () => {
         </div>
 
         {/* Center */}
-        <div className="flex flex-col items-center w-2/4">
+        <div className="flex flex-col justify-center items-center w-2/4 h-full">
 
-          <div className="flex items-center gap-6 text-white">
+          <div className="flex items-center justify-center gap-8 text-slate-300">
 
-<button
-  onClick={playPrevious}
-  className="hover:text-violet-400 transition"
->
-  <FaStepBackward />
-</button>
+            <button
+              onClick={playPrevious}
+              className="
+                w-11
+                h-11
+                rounded-full
+                bg-white/5
+                hover:bg-white/10
+                border
+                border-white/10
+                flex
+                items-center
+                justify-center
+                transition-all
+                duration-300
+                hover:scale-110
+              "
+            >
+              <FaStepBackward />
+            </button>
 
             <button
               onClick={togglePlay}
-              className="bg-white text-black rounded-full p-3 hover:scale-110 transition"
+              className="
+                w-16
+                h-16
+                rounded-full
+                bg-gradient-to-r
+                from-violet-500
+                to-cyan-400
+                text-white
+                shadow-[0_0_30px_rgba(139,92,246,0.5)]
+                flex
+                items-center
+                justify-center
+                hover:scale-110
+                transition-all
+                duration-300
+              "
             >
               {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
 
-<button
-  onClick={playNext}
-  className="hover:text-violet-400 transition"
->
-  <FaStepForward />
-</button>
+            <button
+              onClick={playNext}
+              className="
+                w-11
+                h-11
+                rounded-full
+                bg-white/5
+                hover:bg-white/10
+                border
+                border-white/10
+                flex
+                items-center
+                justify-center
+                transition-all
+                duration-300
+                hover:scale-110
+              "
+            >
+              <FaStepForward />
+            </button>
 
           </div>
 
-          <div className="w-full mt-4">
+          <div className="w-full mt-3">
 
-            <div className="w-full mt-4">
+            <div className="w-full">
 
               <div className="flex justify-between text-xs text-gray-400 mb-1">
 
@@ -172,8 +241,12 @@ const playPrevious = () => {
                   audioRef.current.currentTime = time;
                   setCurrentTime(time);
                 }}
-                className="w-full accent-violet-500 cursor-pointer"
-              />
+                className="
+                  w-full
+                  h-1.5
+                  accent-violet-500
+                  cursor-pointer
+                "              />
 
             </div>
 
@@ -184,7 +257,7 @@ const playPrevious = () => {
         {/* Right */}
         <div className="flex items-center gap-3 w-1/4 justify-end">
 
-          <FaVolumeUp className="text-white" />
+          <FaVolumeUp className="text-violet-400 text-lg" />
 
           <input
             type="range"
@@ -194,7 +267,11 @@ const playPrevious = () => {
             onChange={(e) => {
               audioRef.current.volume = e.target.value / 100;
             }}
-            className="accent-violet-500 cursor-pointer"
+            className="
+              w-28
+              accent-cyan-400
+              cursor-pointer
+            "
           />
 
         </div>
