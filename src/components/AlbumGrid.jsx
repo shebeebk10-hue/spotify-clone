@@ -1,5 +1,9 @@
-function AlbumGrid({ songs, setCurrentSongIndex }) {
-  return (
+function AlbumGrid({
+  songs,
+  setCurrentSongIndex,
+  currentSongIndex,
+}) {
+    return (
     <div className="px-8 mt-6 grid grid-cols-3 gap-4">
 
       {songs.length === 0 ? (
@@ -17,11 +21,9 @@ function AlbumGrid({ songs, setCurrentSongIndex }) {
           <div
             key={song.id}
             onClick={() => setCurrentSongIndex(song.id - 1)}
-            className="
+            className={`
               group
               h-20
-              bg-[#2a2a2a]/80
-              hover:bg-[#3a3a3a]
               rounded-md
               overflow-hidden
               flex
@@ -29,7 +31,13 @@ function AlbumGrid({ songs, setCurrentSongIndex }) {
               cursor-pointer
               transition-all
               duration-300
-            "
+
+              ${
+                currentSongIndex === song.id - 1
+                  ? "bg-violet-500/20 border border-violet-500 shadow-[0_0_20px_rgba(139,92,246,0.35)]"
+                  : "bg-[#2a2a2a]/80 hover:bg-[#3a3a3a]"
+              }
+            `}
           >
             <img
               src={song.image}

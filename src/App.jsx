@@ -51,11 +51,13 @@ function App() {
           <AlbumGrid
             songs={filteredSongs}
             setCurrentSongIndex={setCurrentSongIndex}
+            currentSongIndex={currentSongIndex}
           />
 
           <RecentlyPlayed
             songs={filteredSongs}
             setCurrentSongIndex={setCurrentSongIndex}
+            currentSongIndex={currentSongIndex}
           />
 
         </main>

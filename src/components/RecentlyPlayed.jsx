@@ -1,6 +1,10 @@
 import SongCard from "./SongCard";
 
-function RecentlyPlayed({ songs, setCurrentSongIndex }) {
+function RecentlyPlayed({
+  songs,
+  setCurrentSongIndex,
+  currentSongIndex,
+}) {  
   return (
     <div className="px-8 mt-12">
 
@@ -26,11 +30,12 @@ function RecentlyPlayed({ songs, setCurrentSongIndex }) {
               key={song.id}
               onClick={() => setCurrentSongIndex(song.id - 1)}
             >
-              <SongCard
-                image={song.image}
-                title={song.title}
-                artist={song.artist}
-              />
+            <SongCard
+              image={song.image}
+              title={song.title}
+              artist={song.artist}
+              isPlaying={currentSongIndex === song.id - 1}
+            />
             </div>
           ))}
 
