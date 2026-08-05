@@ -1,14 +1,10 @@
 import { useRef, useState, useEffect } from "react";
 import songs from "../../data/songs";
-import SongInfo from "./SongInfo";
 
-import {
-  FaPlay,
-  FaPause,
-  FaStepBackward,
-  FaStepForward,
-  FaVolumeUp,
-} from "react-icons/fa";
+import SongInfo from "./SongInfo";
+import Controls from "./Controls";
+import Timeline from "./Timeline";
+import Volume from "./Volume";
 
 function Player({
   currentSong,
@@ -20,10 +16,11 @@ function Player({
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(100);
 
-  // ----------------------------------
+  // -----------------------------
   // Previous Song
-  // ----------------------------------
+  // -----------------------------
 
   const playPrevious = () => {
     setCurrentSongIndex((prev) =>
@@ -31,9 +28,9 @@ function Player({
     );
   };
 
-  // ----------------------------------
+  // -----------------------------
   // Next Song
-  // ----------------------------------
+  // -----------------------------
 
   const playNext = () => {
     setCurrentSongIndex((prev) =>
@@ -41,25 +38,17 @@ function Player({
     );
   };
 
-  // ----------------------------------
+  // -----------------------------
   // Play / Pause
-  // ----------------------------------
+  // -----------------------------
 
   const togglePlay = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
+    setIsPlaying((prev) => !prev);
   };
 
-  // ----------------------------------
+  // -----------------------------
   // Load Song
-  // ----------------------------------
+  // -----------------------------
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -78,6 +67,10 @@ function Player({
 
     const loadedMetadata = () => {
       setDuration(audio.duration);
+
+      if (isPlaying) {
+        audio.play();
+      }
     };
 
     const ended = () => {
@@ -94,6 +87,30 @@ function Player({
       audio.removeEventListener("ended", ended);
     };
   }, [currentSong]);
+
+  // -----------------------------
+  // React to Play / Pause
+  // -----------------------------
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    if (isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [isPlaying]);
+
+  // -----------------------------
+  // Volume
+  // -----------------------------
+
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    audioRef.current.volume = volume / 100;
+  }, [volume]);
 
   return (
     <>
@@ -127,127 +144,31 @@ function Player({
         <SongInfo currentSong={currentSong} />
 
         {/* Center */}
-        <div className="flex flex-col justify-center items-center w-2/4">
 
-          <div className="flex items-center gap-8">
+        <div className="flex-1 px-10">
 
-            <button
-              onClick={playPrevious}
-              className="
-                w-11
-                h-11
-                rounded-full
-                bg-white/5
-                border
-                border-white/10
-                hover:bg-white/10
-                transition
-              "
-            >
-              <FaStepBackward className="mx-auto text-white" />
-            </button>
+          <Controls
+            isPlaying={isPlaying}
+            togglePlay={togglePlay}
+            playNext={playNext}
+            playPrevious={playPrevious}
+          />
 
-            <button
-              onClick={togglePlay}
-              className="
-                w-16
-                h-16
-                rounded-full
-                bg-gradient-to-r
-                from-violet-500
-                to-cyan-400
-                text-white
-                shadow-lg
-                hover:scale-110
-                transition
-              "
-            >
-              {isPlaying ? (
-                <FaPause className="mx-auto" />
-              ) : (
-                <FaPlay className="mx-auto ml-1" />
-              )}
-            </button>
-
-            <button
-              onClick={playNext}
-              className="
-                w-11
-                h-11
-                rounded-full
-                bg-white/5
-                border
-                border-white/10
-                hover:bg-white/10
-                transition
-              "
-            >
-              <FaStepForward className="mx-auto text-white" />
-            </button>
-
-          </div>
-
-          <div className="w-full mt-4">
-
-            <div className="flex justify-between text-xs text-slate-400 mb-2">
-
-              <span>
-                {Math.floor(currentTime / 60)}:
-                {String(Math.floor(currentTime % 60)).padStart(2, "0")}
-              </span>
-
-              <span>
-                {Math.floor(duration / 60)}:
-                {String(Math.floor(duration % 60)).padStart(2, "0")}
-              </span>
-
-            </div>
-
-            <input
-              type="range"
-              min="0"
-              max={duration || 0}
-              value={currentTime}
-              onChange={(e) => {
-                const time = Number(e.target.value);
-
-                audioRef.current.currentTime = time;
-                setCurrentTime(time);
-              }}
-              className="
-                w-full
-                h-1.5
-                accent-violet-500
-                cursor-pointer
-              "
-            />
-
-          </div>
+          <Timeline
+            audioRef={audioRef}
+            currentTime={currentTime}
+            duration={duration}
+            setCurrentTime={setCurrentTime}
+          />
 
         </div>
 
         {/* Right */}
 
-        <div className="flex items-center gap-3 w-1/4 justify-end">
-
-          <FaVolumeUp className="text-violet-400" />
-
-          <input
-            type="range"
-            min="0"
-            max="100"
-            defaultValue="100"
-            onChange={(e) => {
-              audioRef.current.volume = e.target.value / 100;
-            }}
-            className="
-              w-28
-              accent-cyan-400
-              cursor-pointer
-            "
-          />
-
-        </div>
+        <Volume
+          volume={volume}
+          setVolume={setVolume}
+        />
 
       </div>
     </>
