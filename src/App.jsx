@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import AlbumGrid from "./components/AlbumGrid";
 import RecentlyPlayed from "./components/RecentlyPlayed";
-import Player from "./components/Player";
+import Player from "./components/Player/Player";
 
 function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
