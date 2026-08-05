@@ -44,8 +44,10 @@ function App() {
           "
         >
           <Header
+            songs={songs}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            setCurrentSongIndex={setCurrentSongIndex}
           />
 
           <Hero

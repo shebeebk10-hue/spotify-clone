@@ -68,18 +68,18 @@ function AlbumGrid({
                   cursor-pointer
                   group
                   transition-all
-                  duration-500
+                  duration-300
+                  ease-out
 
                   ${
                     large
                       ? "col-span-8"
                       : "col-span-4"
                   }
-
                   ${
                     currentSongIndex === song.id - 1
-                      ? "ring-2 ring-violet-500 shadow-[0_0_35px_rgba(139,92,246,.45)]"
-                      : "border border-white/10 hover:border-cyan-400/40 hover:-translate-y-1"
+                      ? "ring-1 ring-violet-400/70 shadow-lg shadow-violet-500/20"
+                      : "border border-white/10 hover:border-white/30"
                   }
                 `}
               >
@@ -97,7 +97,7 @@ function AlbumGrid({
                     object-cover
                     transition-transform
                     duration-700
-                    group-hover:scale-110
+                    group-hover:scale-105
                   "
                 />
 
@@ -160,7 +160,7 @@ function AlbumGrid({
                           text-white
                           transition
                           duration-300
-                          group-hover:scale-110
+                          group-hover:scale-105
                         "
                       >
                         <FaPlay className="ml-1" />
@@ -181,7 +181,6 @@ function AlbumGrid({
                         shadow-2xl
                         transition-all
                         duration-700
-                        group-hover:rotate-3
                         group-hover:scale-105
                       "
                     />
