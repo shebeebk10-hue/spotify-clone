@@ -1,4 +1,4 @@
-import { FaPlay, FaMusic } from "react-icons/fa";
+import { FaPlay, FaMusic, FaArrowRight } from "react-icons/fa";
 
 function RecentlyPlayed({
   songs,
@@ -6,42 +6,64 @@ function RecentlyPlayed({
   currentSongIndex,
 }) {
   return (
-    <section className="px-8 mt-16 mb-10">
+    <section className="px-10 mt-24 mb-14">
 
-      {/* Section Header */}
+      {/* Header */}
 
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-end justify-between mb-10">
 
         <div>
 
-          <p className="text-cyan-400 text-sm tracking-[0.25em] uppercase">
-            Your Collection
-          </p>
+          <span className="text-cyan-400 uppercase tracking-[0.25em] text-sm">
+            Continue Listening
+          </span>
 
-          <h2 className="text-4xl font-bold text-white mt-2">
-            Recently Played
+          <h2 className="text-5xl font-bold text-white mt-3">
+            Pick up where you left off
           </h2>
+
+          <p className="text-slate-400 mt-3 text-lg">
+            Your recently played favorites.
+          </p>
 
         </div>
 
-        <FaMusic className="text-violet-400 text-3xl" />
+        <button
+          className="
+            flex
+            items-center
+            gap-2
+            text-violet-400
+            hover:text-cyan-400
+            transition
+          "
+        >
+          View All
+
+          <FaArrowRight />
+        </button>
 
       </div>
 
       {songs.length === 0 ? (
-        <div className="text-center py-20">
 
-          <h2 className="text-white text-2xl font-semibold">
-            No songs found
+        <div className="text-center py-24">
+
+          <FaMusic className="text-6xl text-slate-600 mx-auto mb-5" />
+
+          <h2 className="text-2xl font-bold text-white">
+            Nothing found
           </h2>
 
-          <p className="text-slate-400 mt-3">
-            Try searching for another title.
+          <p className="text-slate-500 mt-3">
+            Try searching for another song.
           </p>
 
         </div>
+
       ) : (
-        <div className="space-y-5">
+
+        <div className="space-y-6">
 
           {songs.slice(0, 4).map((song) => (
 
@@ -49,21 +71,19 @@ function RecentlyPlayed({
               key={song.id}
               onClick={() => setCurrentSongIndex(song.id - 1)}
               className={`
-                group
                 relative
+                group
                 overflow-hidden
-                rounded-3xl
+                rounded-[30px]
                 border
                 cursor-pointer
                 transition-all
                 duration-500
-                hover:-translate-y-1
-                hover:scale-[1.01]
 
                 ${
                   currentSongIndex === song.id - 1
                     ? "border-violet-500 bg-violet-500/10 shadow-[0_0_35px_rgba(139,92,246,.35)]"
-                    : "border-white/10 bg-white/5 hover:border-cyan-400/40"
+                    : "border-white/10 bg-white/5 hover:bg-white/10 hover:border-cyan-400/40 hover:-translate-y-1"
                 }
               `}
             >
@@ -80,11 +100,12 @@ function RecentlyPlayed({
                   duration-500
                   bg-gradient-to-r
                   from-violet-500/10
+                  via-transparent
                   to-cyan-400/10
                 "
               />
 
-              <div className="relative flex items-center p-5">
+              <div className="relative flex items-center px-8 py-6">
 
                 {/* Cover */}
 
@@ -92,22 +113,19 @@ function RecentlyPlayed({
                   src={song.image}
                   alt={song.title}
                   className="
-                    w-24
-                    h-24
-                    rounded-2xl
+                    w-28
+                    h-28
+                    rounded-3xl
                     object-cover
-                    shadow-xl
-                    transition-transform
-                    duration-500
-                    group-hover:scale-105
+                    shadow-2xl
                   "
                 />
 
-                {/* Text */}
+                {/* Song Details */}
 
-                <div className="ml-6 flex-1">
+                <div className="ml-8 flex-1">
 
-                  <h3 className="text-white text-xl font-bold">
+                  <h3 className="text-2xl font-bold text-white">
                     {song.title}
                   </h3>
 
@@ -115,17 +133,35 @@ function RecentlyPlayed({
                     {song.artist}
                   </p>
 
+                  <div className="flex gap-3 mt-5">
+
+                    <span className="px-3 py-1 rounded-full bg-white/5 text-xs text-slate-300">
+                      Chill
+                    </span>
+
+                    <span className="px-3 py-1 rounded-full bg-white/5 text-xs text-slate-300">
+                      2026
+                    </span>
+
+                  </div>
+
                 </div>
 
-                {/* Playing Status */}
+                {/* Right Side */}
 
                 {currentSongIndex === song.id - 1 ? (
 
                   <div className="flex items-center gap-3">
 
-                    <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
+                    <div className="flex gap-1">
 
-                    <span className="text-cyan-400 font-medium">
+                      <div className="w-1 h-5 bg-cyan-400 rounded animate-pulse"></div>
+                      <div className="w-1 h-8 bg-cyan-400 rounded animate-pulse delay-75"></div>
+                      <div className="w-1 h-4 bg-cyan-400 rounded animate-pulse delay-150"></div>
+
+                    </div>
+
+                    <span className="text-cyan-400 font-semibold">
                       Playing
                     </span>
 
@@ -135,9 +171,9 @@ function RecentlyPlayed({
 
                   <button
                     className="
-                      w-14
-                      h-14
-                      rounded-2xl
+                      w-16
+                      h-16
+                      rounded-full
                       bg-gradient-to-r
                       from-violet-500
                       to-cyan-400
@@ -147,12 +183,13 @@ function RecentlyPlayed({
                       text-white
                       opacity-0
                       group-hover:opacity-100
+                      group-hover:scale-110
                       transition-all
                       duration-500
-                      group-hover:scale-110
+                      shadow-[0_0_25px_rgba(139,92,246,.45)]
                     "
                   >
-                    <FaPlay />
+                    <FaPlay className="ml-1" />
                   </button>
 
                 )}
@@ -164,6 +201,7 @@ function RecentlyPlayed({
           ))}
 
         </div>
+
       )}
 
     </section>

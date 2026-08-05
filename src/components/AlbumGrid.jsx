@@ -1,135 +1,265 @@
+import { FaPlay, FaFire, FaHeadphones } from "react-icons/fa";
+
 function AlbumGrid({
   songs,
   setCurrentSongIndex,
   currentSongIndex,
 }) {
-  const layouts = [
-    "col-span-7 row-span-2",
-    "col-span-5 row-span-1",
-    "col-span-4 row-span-1",
-    "col-span-8 row-span-1",
-    "col-span-6 row-span-1",
-    "col-span-6 row-span-1",
-  ];
-
   return (
-    <div className="px-8 mt-8 grid grid-cols-12 auto-rows-[170px] gap-5">
+    <section className="px-8 mt-12">
+
+      {/* Header */}
+
+      <div className="flex items-end justify-between mb-8">
+
+        <div>
+
+          <p className="text-orange-400 uppercase tracking-[0.25em] text-sm font-semibold">
+            Trending Now
+          </p>
+
+          <h2 className="text-4xl font-black text-white mt-2">
+            Discover What's Hot
+          </h2>
+
+          <p className="text-slate-400 mt-2">
+            Curated playlists and trending releases.
+          </p>
+
+        </div>
+
+        <FaFire className="text-3xl text-orange-400" />
+
+      </div>
 
       {songs.length === 0 ? (
-        <div className="col-span-12 text-center py-20">
-          <h2 className="text-white text-2xl font-semibold">
+
+        <div className="text-center py-20">
+
+          <FaHeadphones className="mx-auto text-5xl text-slate-600 mb-5" />
+
+          <h2 className="text-2xl font-bold text-white">
             No songs found
           </h2>
 
           <p className="text-slate-400 mt-3">
-            Try searching for another title or artist.
+            Try searching another song.
           </p>
+
         </div>
+
       ) : (
-        songs.map((song, index) => {
-          const layout = layouts[index % layouts.length];
 
-          return (
-            <div
-              key={song.id}
-              onClick={() => setCurrentSongIndex(song.id - 1)}
-              className={`
-                ${layout}
-                group
-                relative
-                overflow-hidden
-                rounded-3xl
-                cursor-pointer
-                transition-all
-                duration-500
-                hover:-translate-y-2
-                hover:scale-[1.02]
+        <div className="grid grid-cols-12 gap-6 auto-rows-[240px]">
 
-                ${
-                  currentSongIndex === song.id - 1
-                    ? "border border-violet-500 bg-violet-500/10 shadow-[0_0_40px_rgba(139,92,246,0.4)]"
-                    : "border border-white/10 bg-white/5 hover:border-cyan-400/40"
-                }
-              `}
-            >
-              {/* Background Image */}
-              <img
-                src={song.image}
-                alt={song.title}
-                className="
-                  absolute
-                  inset-0
-                  w-full
-                  h-full
-                  object-cover
-                  transition-transform
-                  duration-700
-                  group-hover:scale-110
-                "
-              />
+          {songs.map((song, index) => {
 
-              {/* Gradient Overlay */}
+            const large = index % 4 === 0 || index % 4 === 3;
+
+            return (
+
               <div
-                className="
-                  absolute
-                  inset-0
-                  bg-gradient-to-t
-                  from-black
-                  via-black/40
-                  to-transparent
-                "
-              />
-
-              {/* Glow Overlay */}
-              <div
-                className="
-                  absolute
-                  inset-0
-                  opacity-0
-                  group-hover:opacity-100
-                  transition-opacity
+                key={song.id}
+                onClick={() => setCurrentSongIndex(song.id - 1)}
+                className={`
+                  relative
+                  overflow-hidden
+                  rounded-[32px]
+                  cursor-pointer
+                  group
+                  transition-all
                   duration-500
-                  bg-gradient-to-br
-                  from-violet-500/10
-                  to-cyan-400/10
-                "
-              />
 
-              {/* Song Details */}
-              <div className="absolute bottom-0 left-0 p-6">
+                  ${
+                    large
+                      ? "col-span-8"
+                      : "col-span-4"
+                  }
 
-                <h2 className="text-white text-2xl font-bold drop-shadow-lg">
-                  {song.title}
-                </h2>
+                  ${
+                    currentSongIndex === song.id - 1
+                      ? "ring-2 ring-violet-500 shadow-[0_0_35px_rgba(139,92,246,.45)]"
+                      : "border border-white/10 hover:border-cyan-400/40 hover:-translate-y-1"
+                  }
+                `}
+              >
 
-                <p className="text-slate-300 mt-2">
-                  {song.artist}
-                </p>
+                {/* Background */}
 
-              </div>
+                <img
+                  src={song.image}
+                  alt={song.title}
+                  className="
+                    absolute
+                    inset-0
+                    w-full
+                    h-full
+                    object-cover
+                    transition-transform
+                    duration-700
+                    group-hover:scale-110
+                  "
+                />
 
-              {/* Playing Indicator */}
-              {currentSongIndex === song.id - 1 && (
+                {/* Overlay */}
+
                 <div
                   className="
                     absolute
-                    top-5
-                    right-5
-                    w-4
-                    h-4
-                    rounded-full
-                    bg-cyan-400
-                    shadow-[0_0_20px_rgba(34,211,238,0.8)]
-                    animate-pulse
+                    inset-0
+                    bg-gradient-to-br
+                    from-black
+                    via-black/60
+                    to-black/20
                   "
                 />
-              )}
-            </div>
-          );
-        })
+
+                {/* Content */}
+
+                {large ? (
+
+                  <div className="relative h-full flex items-center justify-between px-8">
+
+                    {/* Left */}
+
+                    <div className="max-w-md">
+
+                      <span
+                        className="
+                          px-4
+                          py-2
+                          rounded-full
+                          bg-white/10
+                          text-sm
+                          backdrop-blur
+                        "
+                      >
+                        Editor's Choice
+                      </span>
+
+                      <h2 className="text-5xl font-black text-white mt-6">
+                        {song.title}
+                      </h2>
+
+                      <p className="text-slate-300 mt-3">
+                        {song.artist}
+                      </p>
+
+                      <button
+                        className="
+                          mt-8
+                          w-14
+                          h-14
+                          rounded-full
+                          bg-gradient-to-r
+                          from-violet-500
+                          to-cyan-400
+                          flex
+                          items-center
+                          justify-center
+                          text-white
+                          transition
+                          duration-300
+                          group-hover:scale-110
+                        "
+                      >
+                        <FaPlay className="ml-1" />
+                      </button>
+
+                    </div>
+
+                    {/* Album Cover */}
+
+                    <img
+                      src={song.image}
+                      alt={song.title}
+                      className="
+                        w-52
+                        h-52
+                        object-cover
+                        rounded-[28px]
+                        shadow-2xl
+                        transition-all
+                        duration-700
+                        group-hover:rotate-3
+                        group-hover:scale-105
+                      "
+                    />
+
+                  </div>
+
+                ) : (
+
+                  <div className="relative h-full flex flex-col justify-end p-6">
+
+                    <h3 className="text-2xl font-bold text-white">
+                      {song.title}
+                    </h3>
+
+                    <p className="text-slate-300 mt-2">
+                      {song.artist}
+                    </p>
+
+                    <button
+                      className="
+                        absolute
+                        top-5
+                        right-5
+                        w-12
+                        h-12
+                        rounded-full
+                        bg-gradient-to-r
+                        from-violet-500
+                        to-cyan-400
+                        flex
+                        items-center
+                        justify-center
+                        text-white
+                        opacity-0
+                        group-hover:opacity-100
+                        transition-all
+                        duration-300
+                      "
+                    >
+                      <FaPlay className="ml-1" />
+                    </button>
+
+                  </div>
+
+                )}
+
+                {currentSongIndex === song.id - 1 && (
+
+                  <div
+                    className="
+                      absolute
+                      top-5
+                      left-5
+                      px-4
+                      py-2
+                      rounded-full
+                      bg-cyan-500/20
+                      text-cyan-300
+                      text-sm
+                      animate-pulse
+                    "
+                  >
+                    ● Playing
+                  </div>
+
+                )}
+
+              </div>
+
+            );
+
+          })}
+
+        </div>
+
       )}
 
-    </div>
+    </section>
   );
 }
 

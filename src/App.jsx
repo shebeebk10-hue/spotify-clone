@@ -9,21 +9,25 @@ import RecentlyPlayed from "./components/RecentlyPlayed";
 import Player from "./components/Player/Player";
 
 function App() {
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  
+  const [currentSongIndex, setCurrentSongIndex] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const currentSong = songs[currentSongIndex];
+  const currentSong =
+    currentSongIndex !== null
+      ? songs[currentSongIndex]
+      : null;
 
-  const filteredSongs = songs.filter((song) =>
-  song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  song.artist.toLowerCase().includes(searchTerm.toLowerCase())
-);
+  const filteredSongs = songs.filter(
+    (song) =>
+      song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      song.artist.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="bg-black h-screen flex flex-col">
 
       {/* Main Content */}
+
       <div className="flex flex-1 overflow-hidden">
 
         <Sidebar />
@@ -43,8 +47,9 @@ function App() {
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
           />
+
           <Hero
-            currentSong={currentSong}
+            currentSong={currentSong || songs[0]}
             setCurrentSongIndex={setCurrentSongIndex}
           />
 
@@ -59,17 +64,20 @@ function App() {
             setCurrentSongIndex={setCurrentSongIndex}
             currentSongIndex={currentSongIndex}
           />
-
         </main>
 
       </div>
 
-      {/* Bottom Player */}
-      <Player
-        currentSong={currentSong}
-        currentSongIndex={currentSongIndex}
-        setCurrentSongIndex={setCurrentSongIndex}
-      />
+      {/* Music Player */}
+
+      {currentSongIndex !== null && (
+        <Player
+          currentSong={currentSong}
+          currentSongIndex={currentSongIndex}
+          setCurrentSongIndex={setCurrentSongIndex}
+          onClose={() => setCurrentSongIndex(null)}
+        />
+      )}
 
     </div>
   );

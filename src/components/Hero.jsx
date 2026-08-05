@@ -1,25 +1,25 @@
 function Hero({ currentSong, setCurrentSongIndex }) {
   return (
-    <section className="px-8 mt-6 mb-12">
+    <section className="px-8 mt-6">
 
       <div
         className="
           relative
           overflow-hidden
-          rounded-[36px]
+          rounded-[34px]
+          min-h-[340px]
           border
           border-white/10
-          bg-white/5
-          backdrop-blur-2xl
-          min-h-[430px]
+          bg-[#101015]
           flex
           items-center
           justify-between
           px-12
-          py-12
         "
       >
-        {/* Background Image */}
+
+        {/* Background */}
+
         <img
           src={currentSong.image}
           alt={currentSong.title}
@@ -29,115 +29,63 @@ function Hero({ currentSong, setCurrentSongIndex }) {
             w-full
             h-full
             object-cover
-            opacity-20
-            blur-sm
-            scale-110
+            opacity-15
+            blur-xl
+            scale-125
           "
         />
 
-        {/* Dark Overlay */}
-        <div
-          className="
-            absolute
-            inset-0
-            bg-gradient-to-r
-            from-[#09090B]
-            via-[#09090bdd]
-            to-[#09090B99]
-          "
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#09090B] via-[#09090be6] to-[#09090b99]" />
 
         {/* Glow */}
-        <div
-          className="
-            absolute
-            -left-32
-            -top-32
-            w-96
-            h-96
-            rounded-full
-            bg-violet-500/20
-            blur-[140px]
-          "
-        />
 
-        <div
-          className="
-            absolute
-            right-0
-            bottom-0
-            w-80
-            h-80
-            rounded-full
-            bg-cyan-400/20
-            blur-[140px]
-          "
-        />
+        <div className="absolute -left-24 -top-24 w-72 h-72 bg-violet-500/20 rounded-full blur-[120px]" />
 
-        {/* Left Side */}
+        <div className="absolute right-0 bottom-0 w-72 h-72 bg-cyan-400/15 rounded-full blur-[120px]" />
+
+        {/* LEFT */}
+
         <div className="relative z-10 max-w-xl">
 
           <span
             className="
-              inline-flex
-              items-center
-              gap-2
               px-4
               py-2
               rounded-full
+              text-sm
               bg-white/10
               border
               border-white/10
               text-cyan-300
-              text-sm
-              backdrop-blur-xl
             "
           >
             FEATURED TODAY
           </span>
 
-          <h1
-            className="
-              mt-6
-              text-6xl
-              font-black
-              tracking-tight
-              text-white
-            "
-          >
+          <h1 className="text-6xl font-black text-white mt-6 leading-none">
             {currentSong.title}
           </h1>
 
-          <p
-            className="
-              mt-5
-              text-lg
-              leading-8
-              text-slate-300
-            "
-          >
-            Immerse yourself in beautiful soundscapes,
-            cinematic beats and carefully curated music
-            designed for every mood.
+          <p className="mt-5 text-slate-300 leading-8 text-lg">
+            Beautiful soundscapes, cinematic beats and
+            curated playlists crafted for every mood.
           </p>
 
-          <div className="flex gap-4 mt-10">
+          <div className="flex gap-4 mt-8">
 
             <button
               onClick={() => setCurrentSongIndex(currentSong.id - 1)}
               className="
                 px-8
-                py-4
+                h-14
                 rounded-2xl
                 bg-gradient-to-r
                 from-violet-500
                 to-cyan-400
-                font-semibold
                 text-white
+                font-semibold
                 hover:scale-105
-                transition-all
-                duration-300
-                shadow-[0_15px_40px_rgba(139,92,246,0.35)]
+                transition
               "
             >
               ▶ Play Now
@@ -146,16 +94,14 @@ function Hero({ currentSong, setCurrentSongIndex }) {
             <button
               className="
                 px-8
-                py-4
+                h-14
                 rounded-2xl
-                bg-white/5
                 border
                 border-white/10
-                backdrop-blur-xl
-                text-white
+                bg-white/5
                 hover:bg-white/10
-                transition-all
-                duration-300
+                text-white
+                transition
               "
             >
               ♡ Favorite
@@ -165,10 +111,10 @@ function Hero({ currentSong, setCurrentSongIndex }) {
 
         </div>
 
-        {/* Right Side */}
+        {/* RIGHT */}
+
         <div className="relative z-10">
 
-          {/* Glow Behind Cover */}
           <div
             className="
               absolute
@@ -187,13 +133,13 @@ function Hero({ currentSong, setCurrentSongIndex }) {
             alt={currentSong.title}
             className="
               relative
-              w-[320px]
-              rounded-[34px]
-              shadow-[0_30px_70px_rgba(0,0,0,0.45)]
+              w-[260px]
+              rounded-[28px]
+              shadow-[0_30px_80px_rgba(0,0,0,.45)]
               transition-all
               duration-700
-              hover:scale-105
               hover:rotate-2
+              hover:scale-105
             "
           />
 

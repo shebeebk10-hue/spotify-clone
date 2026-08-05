@@ -6,10 +6,13 @@ import Controls from "./Controls";
 import Timeline from "./Timeline";
 import Volume from "./Volume";
 
+import { FaTimes } from "react-icons/fa";
+
 function Player({
   currentSong,
   currentSongIndex,
   setCurrentSongIndex,
+  onClose,
 }) {
   const audioRef = useRef(null);
 
@@ -18,9 +21,7 @@ function Player({
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(100);
 
-  // -----------------------------
   // Previous Song
-  // -----------------------------
 
   const playPrevious = () => {
     setCurrentSongIndex((prev) =>
@@ -28,9 +29,7 @@ function Player({
     );
   };
 
-  // -----------------------------
   // Next Song
-  // -----------------------------
 
   const playNext = () => {
     setCurrentSongIndex((prev) =>
@@ -38,17 +37,13 @@ function Player({
     );
   };
 
-  // -----------------------------
   // Play / Pause
-  // -----------------------------
 
   const togglePlay = () => {
     setIsPlaying((prev) => !prev);
   };
 
-  // -----------------------------
   // Load Song
-  // -----------------------------
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -88,9 +83,7 @@ function Player({
     };
   }, [currentSong]);
 
-  // -----------------------------
   // React to Play / Pause
-  // -----------------------------
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -102,9 +95,7 @@ function Player({
     }
   }, [isPlaying]);
 
-  // -----------------------------
   // Volume
-  // -----------------------------
 
   useEffect(() => {
     if (!audioRef.current) return;
@@ -137,16 +128,51 @@ function Player({
           items-center
           justify-between
           px-8
+          py-6
           z-50
+          relative
         "
       >
+        {/* Close Button */}
+
+        <button
+          onClick={() => {
+            audioRef.current.pause();
+            setIsPlaying(false);
+            onClose();
+          }}
+          className="
+            absolute
+            top-4
+            right-4
+            w-10
+            h-10
+            rounded-full
+            bg-black/40
+            backdrop-blur-xl
+            border
+            border-white/10
+            flex
+            items-center
+            justify-center
+            text-slate-300
+            hover:bg-red-500
+            hover:text-white
+            hover:rotate-90
+            transition-all
+            duration-300
+          "
+        >
+          <FaTimes />
+        </button>
+
         {/* Left */}
+
         <SongInfo currentSong={currentSong} />
 
         {/* Center */}
 
         <div className="flex-1 px-10">
-
           <Controls
             isPlaying={isPlaying}
             togglePlay={togglePlay}
@@ -160,7 +186,6 @@ function Player({
             duration={duration}
             setCurrentTime={setCurrentTime}
           />
-
         </div>
 
         {/* Right */}
@@ -169,7 +194,6 @@ function Player({
           volume={volume}
           setVolume={setVolume}
         />
-
       </div>
     </>
   );
