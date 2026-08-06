@@ -1,4 +1,4 @@
-import { FaPlay, FaFire, FaHeadphones } from "react-icons/fa";
+import { FaPlay, FaFire, FaHeadphones, FaClock } from "react-icons/fa";
 
 function AlbumGrid({
   songs,
@@ -13,7 +13,6 @@ function AlbumGrid({
       <div className="flex items-end justify-between mb-8">
 
         <div>
-
           <p className="text-orange-400 uppercase tracking-[0.25em] text-sm font-semibold">
             Trending Now
           </p>
@@ -25,7 +24,6 @@ function AlbumGrid({
           <p className="text-slate-400 mt-2">
             Curated playlists and trending releases.
           </p>
-
         </div>
 
         <FaFire className="text-3xl text-orange-400" />
@@ -64,22 +62,19 @@ function AlbumGrid({
                 className={`
                   relative
                   overflow-hidden
-                  rounded-[32px]
+                  rounded-[30px]
                   cursor-pointer
                   group
                   transition-all
-                  duration-300
-                  ease-out
+                  duration-500
+                  hover:-translate-y-1
+
+                  ${large ? "col-span-8" : "col-span-4"}
 
                   ${
-                    large
-                      ? "col-span-8"
-                      : "col-span-4"
-                  }
-                  ${
                     currentSongIndex === song.id - 1
-                      ? "ring-1 ring-violet-400/70 shadow-lg shadow-violet-500/20"
-                      : "border border-white/10 hover:border-white/30"
+                      ? "ring-2 ring-violet-500 shadow-[0_0_30px_rgba(139,92,246,.35)]"
+                      : "border border-white/10 hover:border-cyan-400/40"
                   }
                 `}
               >
@@ -95,9 +90,9 @@ function AlbumGrid({
                     w-full
                     h-full
                     object-cover
-                    transition-transform
+                    transition-all
                     duration-700
-                    group-hover:scale-105
+                    group-hover:scale-110
                   "
                 />
 
@@ -107,125 +102,14 @@ function AlbumGrid({
                   className="
                     absolute
                     inset-0
-                    bg-gradient-to-br
-                    from-black
-                    via-black/60
+                    bg-gradient-to-r
+                    from-black/95
+                    via-black/55
                     to-black/20
                   "
                 />
 
-                {/* Content */}
-
-                {large ? (
-
-                  <div className="relative h-full flex items-center justify-between px-8">
-
-                    {/* Left */}
-
-                    <div className="max-w-md">
-
-                      <span
-                        className="
-                          px-4
-                          py-2
-                          rounded-full
-                          bg-white/10
-                          text-sm
-                          backdrop-blur
-                        "
-                      >
-                        Editor's Choice
-                      </span>
-
-                      <h2 className="text-5xl font-black text-white mt-6">
-                        {song.title}
-                      </h2>
-
-                      <p className="text-slate-300 mt-3">
-                        {song.artist}
-                      </p>
-
-                      <button
-                        className="
-                          mt-8
-                          w-14
-                          h-14
-                          rounded-full
-                          bg-gradient-to-r
-                          from-violet-500
-                          to-cyan-400
-                          flex
-                          items-center
-                          justify-center
-                          text-white
-                          transition
-                          duration-300
-                          group-hover:scale-105
-                        "
-                      >
-                        <FaPlay className="ml-1" />
-                      </button>
-
-                    </div>
-
-                    {/* Album Cover */}
-
-                    <img
-                      src={song.image}
-                      alt={song.title}
-                      className="
-                        w-52
-                        h-52
-                        object-cover
-                        rounded-[28px]
-                        shadow-2xl
-                        transition-all
-                        duration-700
-                        group-hover:scale-105
-                      "
-                    />
-
-                  </div>
-
-                ) : (
-
-                  <div className="relative h-full flex flex-col justify-end p-6">
-
-                    <h3 className="text-2xl font-bold text-white">
-                      {song.title}
-                    </h3>
-
-                    <p className="text-slate-300 mt-2">
-                      {song.artist}
-                    </p>
-
-                    <button
-                      className="
-                        absolute
-                        top-5
-                        right-5
-                        w-12
-                        h-12
-                        rounded-full
-                        bg-gradient-to-r
-                        from-violet-500
-                        to-cyan-400
-                        flex
-                        items-center
-                        justify-center
-                        text-white
-                        opacity-0
-                        group-hover:opacity-100
-                        transition-all
-                        duration-300
-                      "
-                    >
-                      <FaPlay className="ml-1" />
-                    </button>
-
-                  </div>
-
-                )}
+                {/* Playing */}
 
                 {currentSongIndex === song.id - 1 && (
 
@@ -238,15 +122,101 @@ function AlbumGrid({
                       py-2
                       rounded-full
                       bg-cyan-500/20
+                      backdrop-blur-xl
                       text-cyan-300
                       text-sm
                       animate-pulse
+                      z-20
                     "
                   >
                     ● Playing
                   </div>
 
                 )}
+
+                {/* Content */}
+
+                <div className="relative h-full flex flex-col justify-end p-8">
+
+                  <span
+                    className="
+                      inline-block
+                      w-fit
+                      px-4
+                      py-2
+                      rounded-full
+                      bg-white/10
+                      backdrop-blur-xl
+                      text-xs
+                      text-white
+                      mb-5
+                    "
+                  >
+                    {large ? "Editor's Choice" : "Trending"}
+                  </span>
+
+                  <h2
+                    className={`
+                      text-white
+                      font-black
+                      leading-tight
+
+                      ${
+                        large
+                          ? "text-5xl"
+                          : "text-3xl"
+                      }
+                    `}
+                  >
+                    {song.title}
+                  </h2>
+
+                  <p className="text-slate-300 mt-2">
+                    {song.artist}
+                  </p>
+
+                  <div className="flex items-center justify-between mt-7">
+
+                    <div className="flex items-center gap-2 text-slate-400">
+
+                      <FaClock className="text-xs" />
+
+                      <span className="text-sm">
+                        {song.duration}
+                      </span>
+
+                    </div>
+
+                    <button
+                      className="
+                        w-14
+                        h-14
+                        rounded-full
+                        bg-gradient-to-r
+                        from-violet-500
+                        to-cyan-400
+                        flex
+                        items-center
+                        justify-center
+                        text-white
+
+                        translate-y-5
+                        opacity-0
+
+                        group-hover:translate-y-0
+                        group-hover:opacity-100
+                        group-hover:scale-110
+
+                        transition-all
+                        duration-400
+                      "
+                    >
+                      <FaPlay className="ml-1" />
+                    </button>
+
+                  </div>
+
+                </div>
 
               </div>
 
