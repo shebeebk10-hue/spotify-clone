@@ -24,11 +24,11 @@ function App() {
   );
 
   return (
-    <div className="bg-black h-screen flex flex-col">
+    <div className="bg-black min-h-screen flex">
 
       {/* Main Content */}
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex w-full">
 
         <Sidebar />
 
@@ -40,7 +40,7 @@ function App() {
             via-[#111118]
             to-[#09090b]
             overflow-y-auto
-            pb-40
+            pb-8
           "
         >
           <Header

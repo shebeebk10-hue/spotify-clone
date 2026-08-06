@@ -115,22 +115,29 @@ function Player({
           bottom-5
           left-1/2
           -translate-x-1/2
+
           w-[92%]
           max-w-7xl
           min-h-36
+
           rounded-3xl
           bg-white/5
           backdrop-blur-2xl
+
           border
           border-white/10
-          shadow-[0_0_40px_rgba(139,92,246,0.25)]
+
+          shadow-[0_0_40px_rgba(139,92,246,.25)]
+
           flex
           items-center
           justify-between
+
           px-8
           py-6
+
           z-50
-          relative
+
         "
       >
         {/* Close Button */}

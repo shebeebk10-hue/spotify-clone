@@ -6,7 +6,7 @@ function RecentlyPlayed({
   currentSongIndex,
 }) {
   return (
-    <section className="px-10 mt-24 mb-14">
+    <section className="px-10 mt-20 mb-40">
 
       {/* Header */}
 
